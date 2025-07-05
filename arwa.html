@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Congrats Arwa 🎓</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: #121212;
+      color: #ffffff;
+      text-align: center;
+      overflow: hidden;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .code-box {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      border: 2px solid #ffffff; /* حواف المربع بيضاء */
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      margin: 50px auto;
+      box-shadow: 0 0 20px #ffffff;
+      position: relative;
+      z-index: 2;
+    }
+
+    .surprise-btn {
+      background-color: #ffffff; /* الزر أبيض */
+      color: #121212;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 10px;
+      margin-top: 30px;
+      transition: 0.3s;
+    }
+
+    .surprise-btn:hover {
+      background-color: #dddddd;
+    }
+
+    .message {
+      display: none;
+      font-size: 24px;
+      margin-top: 30px;
+      color: #ffffff;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .grad-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-top: 20px;
+      border: 3px solid #ffffff;
+    }
+
+    #countdown {
+      font-size: 22px;
+      color: #ffffff;
+      margin-top: 20px;
+    }
+
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #ffffff; /* أبيض */
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+      z-index: 1;
+    }
+
+    @keyframes explode {
+      to {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="code-box">
+    <h2>🎓 A Coded Congratulations</h2>
+    <p>From: Bayan 💻<br>To: Arwa 🌟</p>
+    <button class="surprise-btn" onclick="startCountdown()">Click here for a surprise 🎁</button>
+    <div id="countdown"></div>
+    <div class="message" id="congrats">
+      🎉 Congratulations Arwa! So proud of you! 💖<br>
+      <img src="arwa.png.jpeg" alt="Arwa" class="grad-pic">
+    </div>
+  </div>
+
+  <script>
+    function startCountdown() {
+      let count = 3;
+      const countdownEl = document.getElementById('countdown');
+      countdownEl.innerText = `Surprise in... ${count}`;
+      const interval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownEl.innerText = `Surprise in... ${count}`;
+        } else {
+          clearInterval(interval);
+          countdownEl.innerText = "";
+          showSurprise();
+        }
+      }, 1000);
+    }
+
+    function showSurprise() {
+      const msg = document.getElementById('congrats');
+      msg.style.display = 'block';
+      msg.style.animation = 'fadeIn 2s forwards';
+
+      // أول دفعة شرارات
+      triggerFireworks();
+
+      // تكرار الشرارات كل 2 ثانية
+      setInterval(triggerFireworks, 2000);
+    }
+
+    function triggerFireworks() {
+      for (let i = 0; i < 40; i++) {
+        createFirework();
+      }
+    }
+
+    function createFirework() {
+      const firework = document.createElement('div');
+      firework.classList.add('firework');
+      const x = Math.random() * window.innerWidth - window.innerWidth / 2 + 'px';
+      const y = -(Math.random() * window.innerHeight * 0.8 + 50) + 'px';
+      firework.style.left = (window.innerWidth / 2) + 'px';
+      firework.style.top = (window.innerHeight / 2) + 'px';
+      firework.style.setProperty('--x', x);
+      firework.style.setProperty('--y', y);
+      document.body.appendChild(firework);
+      setTimeout(() => firework.remove(), 1000);
+    }
+  </script>
+
+</body>
+</html>
